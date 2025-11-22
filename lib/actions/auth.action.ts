@@ -124,7 +124,7 @@ export async function getCurrentUser(): Promise<User | null> {
     return null;
   }
 }
-
+ 
 // Check if user is authenticated
 export async function isAuthenticated() {
   const user = await getCurrentUser();

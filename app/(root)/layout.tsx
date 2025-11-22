@@ -1,13 +1,16 @@
-
 import Link from "next/link";
 import Image from "next/image";
 import { ReactNode } from "react";
+import { redirect } from "next/navigation";
 
-import React from 'react'
+import { isAuthenticated } from "@/lib/actions/auth.action";
 
-const RootLayout = ({children}:{children:ReactNode}) => {
+const Layout = async ({ children }: { children: ReactNode }) => {
+  const isUserAuthenticated = await isAuthenticated();
+  if (!isUserAuthenticated) redirect("/sign-in");
+
   return (
-   <div className="root-layout">
+    <div className="root-layout">
       <nav>
         <Link href="/" className="flex items-center gap-2">
           <Image src="/logo.svg" alt="MockMate Logo" width={38} height={32} />
@@ -17,7 +20,7 @@ const RootLayout = ({children}:{children:ReactNode}) => {
 
       {children}
     </div>
-  )
-}
+  );
+};
 
-export default RootLayout
+export default Layout;
