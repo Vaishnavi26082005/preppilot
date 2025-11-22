@@ -4,9 +4,7 @@ import Image from "next/image";
 
 import { Button } from "./ui/button";
 import DisplayTechIcons from "./DisplayTechIcon";
-import { cn } from "@/lib/utils";
-
-import { getRandomInterviewCover } from "@/lib/utils";
+import { cn, getRandomInterviewCover } from "@/lib/utils";
 
 const InterviewCard = async ({
   interviewId,
@@ -16,7 +14,6 @@ const InterviewCard = async ({
   techstack,
   createdAt,
 }: InterviewCardProps) => {
-
   const normalizedType = /mix/gi.test(type) ? "Mixed" : type;
 
   const badgeColor =
@@ -39,7 +36,7 @@ const InterviewCard = async ({
               badgeColor
             )}
           >
-            <p className="badge-text ">{normalizedType}</p>
+            <p className="badge-text">{normalizedType}</p>
           </div>
 
           {/* Cover Image */}
@@ -51,7 +48,7 @@ const InterviewCard = async ({
             className="rounded-full object-fit size-[90px]"
           />
 
-          {/* Interview Role */}
+          {/* Role */}
           <h3 className="mt-5 capitalize">{role} Interview</h3>
 
           {/* Date */}
@@ -61,16 +58,16 @@ const InterviewCard = async ({
               <p>{formattedDate}</p>
             </div>
 
-            {/* Score Removed */}
+            {/* Static Score placeholder */}
             <div className="flex flex-row gap-2 items-center">
               <Image src="/star.svg" width={22} height={22} alt="star" />
               <p>--/100</p>
             </div>
           </div>
 
-          {/* Placeholder Text Only (Feedback Removed) */}
+          {/* Placeholder text */}
           <p className="line-clamp-2 mt-5">
-            "You haven't taken this interview yet. Take it now to improve your skills."
+            You haven't taken this interview yet. Take it now to improve your skills.
           </p>
         </div>
 
