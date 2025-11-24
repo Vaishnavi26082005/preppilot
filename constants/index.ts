@@ -106,6 +106,7 @@ export const interviewer: CreateAssistantDTO = {
     model: "nova-2",
     language: "en",
   },
+  
   voice: {
     provider: "11labs",
     voiceId: "sarah",

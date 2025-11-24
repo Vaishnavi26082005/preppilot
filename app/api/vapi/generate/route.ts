@@ -26,20 +26,31 @@ export async function POST(request: Request) {
     });
 
     const interview = {
-      role: role,
-      type: type,
-      level: level,
-      techstack: techstack.split(","),
-      questions: JSON.parse(questions),
-      userId: userid,
-      finalized: true,
-      coverImage: getRandomInterviewCover(),
-      createdAt: new Date().toISOString(),
-    };
+  role: role,
+  type: type,
+  level: level,
 
-    await db.collection("interviews").add(interview);
+  // FIXED 🔥 array + string dono handle karega
+  techstack: Array.isArray(techstack)
+    ? techstack
+    : typeof techstack === "string"
+    ? techstack.split(",").map((t) => t.trim())
+    : [],
 
-    return Response.json({ success: true }, { status: 200 });
+  questions: JSON.parse(questions),
+  userId: userid,
+  finalized: true,
+  coverImage: getRandomInterviewCover(),
+  createdAt: new Date().toISOString(),
+};
+
+
+    const addedInterview = await db.collection("interviews").add(interview);
+
+return Response.json(
+  { success: true, interviewId: addedInterview.id },
+  { status: 200 }
+);
   } catch (error) {
     console.error("Error:", error);
     return Response.json({ success: false, error: error }, { status: 500 });
